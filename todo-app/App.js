@@ -15,10 +15,10 @@ export default function App() {
     <NavigationContainer>
       <View style={styles.container}>
         <Stack.Navigator>
-          {/* <Stack.Screen name="Login">
+          <Stack.Screen name="Login">
             {(props) => <LoginScreen {...props} setAccessToken={setAccessToken} />}
           </Stack.Screen>
-          <Stack.Screen name="Register" component={RegisterScreen} /> */}
+          <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="TodoList">
             {(props) => <TodoListScreen {...props} />}
           </Stack.Screen>

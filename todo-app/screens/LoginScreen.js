@@ -1,42 +1,69 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Button } from 'react-native';
 import axios from 'axios';
 
-const Login = ({ onLogin }) => {
+const API_URL = 'http://localhost:3000';
+
+export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/login', {
+      const response = await axios.post(`${API_URL}/login`, {
         email,
-        password
+        password,
       });
-      onLogin(response.data);
+      // Save the access token to AsyncStorage or another secure storage mechanism
+      navigation.navigate('TodoList');
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <View>
+    <View style={styles.container}>
+      <Text style={styles.title}>Login</Text>
       <TextInput
+        style={styles.input}
+        placeholder="Email"
         value={email}
         onChangeText={setEmail}
-        placeholder="Enter your email"
       />
       <TextInput
+        style={styles.input}
+        placeholder="Password"
         value={password}
         onChangeText={setPassword}
-        placeholder="Enter your password"
-        secureTextEntry={true}
+        secureTextEntry
       />
+      <Button title="Login" onPress={handleLogin} />
       <Button
-        title="Log In"
-        onPress={handleLogin}
+        title="Register"
+        onPress={() => navigation.navigate('Register')}
       />
     </View>
   );
-};
+}
 
-export default Login;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
+    width: '100%',
+  },
+});

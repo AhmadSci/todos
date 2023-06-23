@@ -1,40 +1,36 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
-import TodoList from './screens/TodoListScreen';
-import AddTodo from './screens/AddTodoScreen';
-import Login from './screens/LoginScreen';
-import Register from './screens/RegisterScreen';
+import { StyleSheet, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import LoginScreen from './screens/LoginScreen';
+import RegisterScreen from './screens/RegisterScreen';
+import TodoListScreen from './screens/TodoListScreen';
 
-const App = () => {
-  const [user, setUser] = useState(null);
+const Stack = createStackNavigator();
 
-  const handleLogin = (userData) => {
-    setUser(userData);
-  };
-
-  const handleRegister = (userData) => {
-    setUser(userData);
-  };
-
-  const handleAddTodo = (newTodo) => {
-    setTodos([...todos, newTodo]);
-  };
+export default function App() {
+  const [accessToken, setAccessToken] = useState('');
 
   return (
-    <View>
-      {user ? (
-        <>
-          <AddTodo onAddTodo={handleAddTodo} />
-          <TodoList />
-        </>
-      ) : (
-        <>
-          <Login onLogin={handleLogin} />
-          <Register onRegister={handleRegister} />
-        </>
-      )}
-    </View>
+    <NavigationContainer>
+      <View style={styles.container}>
+        <Stack.Navigator>
+          {/* <Stack.Screen name="Login">
+            {(props) => <LoginScreen {...props} setAccessToken={setAccessToken} />}
+          </Stack.Screen>
+          <Stack.Screen name="Register" component={RegisterScreen} /> */}
+          <Stack.Screen name="TodoList">
+            {(props) => <TodoListScreen {...props} />}
+          </Stack.Screen>
+        </Stack.Navigator>
+      </View>
+    </NavigationContainer>
   );
-};
+}
 
-export default App;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+});

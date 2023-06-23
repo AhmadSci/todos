@@ -22,6 +22,7 @@ Todo app using Node and express for the backend, React native for the frontend
 6. `nodemon index.js` to start the server
 7. `cd..`
 8. `cd todo-app`
+9. Change the `[name]` and `[pass]` in the [.env](./todo-backend/.env) file
 9. `npx prisma migrate dev` to create the database schema.
 10. `npm start` to start the server.
 

@@ -1,3 +1,6 @@
+> **_NOTE:_**  The app should in theory work, but i keep getting a `[TypeError: Network request failed]` even when using axios instead of fetch, i have no idea why. \
+The backend works fine though, tested using postman.
+
 # React Native Todo App
 
 Todo app using Node and express for the backend, React native for the frontend

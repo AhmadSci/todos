@@ -14,7 +14,9 @@ export default function LoginScreen({ navigation }) {
         email,
         password,
       });
-      // Save the access token to AsyncStorage or another secure storage mechanism
+      // Save the user object to AsyncStorage
+      await AsyncStorage.setItem('user', JSON.stringify(response.data));
+      
       navigation.navigate('TodoList');
     } catch (error) {
       console.error(error);

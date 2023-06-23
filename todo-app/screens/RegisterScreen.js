@@ -8,13 +8,15 @@ export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = async () => {
+  const handleRegister = async () => {
     try {
-      const response = await axios.post(`${API_URL}/register`, {
+      const response = await axios.post(`${API_URL}/login`, {
         email,
         password,
       });
-      // Save the access token to AsyncStorage or another secure storage mechanism
+      // Save the user object to AsyncStorage
+      await AsyncStorage.setItem('user', JSON.stringify(response.data));
+      
       navigation.navigate('TodoList');
     } catch (error) {
       console.error(error);
@@ -37,7 +39,7 @@ export default function LoginScreen({ navigation }) {
         onChangeText={setPassword}
         secureTextEntry
       />
-      <Button title="Register" onPress={handleLogin} />
+      <Button title="Register" onPress={handleRegister} />
       <Button
         title="Login"
         onPress={() => navigation.navigate('Login')}

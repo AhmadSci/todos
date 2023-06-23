@@ -9,19 +9,13 @@ import TodoListScreen from './screens/TodoListScreen';
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [accessToken, setAccessToken] = useState('');
-
-  return (
+   return (
     <NavigationContainer>
       <View style={styles.container}>
         <Stack.Navigator>
-          <Stack.Screen name="Login">
-            {(props) => <LoginScreen {...props} setAccessToken={setAccessToken} />}
-          </Stack.Screen>
+          <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
-          <Stack.Screen name="TodoList">
-            {(props) => <TodoListScreen {...props} />}
-          </Stack.Screen>
+          <Stack.Screen name="TodoList" component={TodoListScreen} />
         </Stack.Navigator>
       </View>
     </NavigationContainer>

@@ -11,6 +11,8 @@ app.use(express.json());
 app.get('/todos', async (req, res) => {
   const todos = await prisma.todo.findMany();
   res.json(todos);
+  console.log('Todos retrieved');
+  console.table(todos);
 });
 
 // Create a new todo
@@ -24,6 +26,7 @@ app.post('/todos', async (req, res) => {
     },
   });
   res.json(todo);
+  console.log('Todo created' + todo.id);
 });
 
 // Update a todo
@@ -35,6 +38,7 @@ app.put('/todos/:id', async (req, res) => {
     data: { text, completed },
   });
   res.json(todo);
+  console.log('Todo updated' + todo.id);
 });
 
 // Delete a todo
@@ -44,6 +48,7 @@ app.delete('/todos/:id', async (req, res) => {
     where: { id: parseInt(id) },
   });
   res.sendStatus(204);
+  console.log('Todo deleted' + id);
 });
 
 // Register a new user
@@ -62,10 +67,12 @@ app.post('/register', async (req, res) => {
   });
 
   res.json(user);
+  console.log('User created' + user.email);
 });
 
 // Login a user
 app.post('/login', async (req, res) => {
+  // Get the email and password from the request body
   const { email, password } = req.body;
 
   // Find the user by email
@@ -80,10 +87,11 @@ app.post('/login', async (req, res) => {
   // Compare the passwords
   const passwordMatch = await bcrypt.compare(password, user.password);
   if (!passwordMatch) {
-    return res.status(400).json({ message: 'Invalid email or password' });
+    return res.status(400).json({ message: 'Invalid password' });
   }
 
   res.json(user);
+  console.log('User logged in' + user.email);
 });
 
 app.listen(3000, () => {
